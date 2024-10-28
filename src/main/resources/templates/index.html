@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de Estudiantes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Gestión de Estudiantes</h1>
+
+    <!-- Botón para abrir el modal de agregar estudiante -->
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#agregarEstudianteModal">
+        Agregar Estudiante
+    </button>
+
+    <!-- Tabla para mostrar estudiantes -->
+    <h2>Lista de Estudiantes</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Carrera</th>
+            <th>Semestre</th>
+            <th>Materias</th>
+            <th>Teléfono Celular</th>
+            <th>Teléfono Casa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="estudiante : ${estudiantes}">
+            <td th:text="${estudiante.id}"></td>
+            <td th:text="${estudiante.informacionEscolar.nombre}"></td>
+            <td th:text="${estudiante.informacionEscolar.apellidoPaterno}"></td>
+            <td th:text="${estudiante.informacionEscolar.apellidoMaterno}"></td>
+            <td th:text="${estudiante.informacionPersonal.carrera}"></td>
+            <td th:text="${estudiante.informacionPersonal.semestre}"></td>
+            <td th:text="${estudiante.informacionPersonal.materias}"></td>
+            <td th:text="${estudiante.informacionEscolar.telefonos.celular}"></td>
+            <td th:text="${estudiante.informacionEscolar.telefonos.casa}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de agregar estudiante -->
+<div class="modal fade" id="agregarEstudianteModal" tabindex="-1" aria-labelledby="agregarEstudianteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarEstudianteModalLabel">Agregar Estudiante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" th:action="@{/insert}" method="post">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidoPaterno" class="form-label">Apellido Paterno</label>
+                        <input type="text" id="apellidoPaterno" name="apellidoPaterno" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidoMaterno" class="form-label">Apellido Materno</label>
+                        <input type="text" id="apellidoMaterno" name="apellidoMaterno" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="carrera" class="form-label">Carrera</label>
+                        <input type="text" id="carrera" name="carrera" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="semestre" class="form-label">Semestre</label>
+                        <input type="text" id="semestre" name="semestre" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="materias" class="form-label">Materias (separadas por comas)</label>
+                        <input type="text" id="materias" name="materias" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefonoCelular" class="form-label">Teléfono Celular</label>
+                        <input type="text" id="telefonoCelular" name="telefonoCelular" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefonoCasa" class="form-label">Teléfono Casa</label>
+                        <input type="text" id="telefonoCasa" name="telefonoCasa" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar Estudiante</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

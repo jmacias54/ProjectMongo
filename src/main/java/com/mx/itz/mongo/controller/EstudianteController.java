@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EstudianteController {
@@ -20,8 +21,8 @@ public class EstudianteController {
 
     @GetMapping
     public String getAllEstudiantes(Model model) {
-        List<Estudiante> estudiantes = estudianteService.getAllEstudiantes();
-        model.addAttribute("estudiantes", estudiantes);
+        List<Map> estudiantesPorCarrera = estudianteService.getEstudiantesAgrupadosPorCarrera();
+        model.addAttribute("estudiantesPorCarrera", estudiantesPorCarrera);
         return "index";
     }
 
@@ -30,5 +31,7 @@ public class EstudianteController {
         estudianteService.addEstudiante(estudianteDTO);
         return "redirect:/";
     }
+
+
 
 }

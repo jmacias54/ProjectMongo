@@ -7,11 +7,14 @@ import com.mx.itz.mongo.entity.InformacionPersonal;
 import com.mx.itz.mongo.entity.Telefonos;
 import com.mx.itz.mongo.repository.EstudianteRepository;
 import com.mx.itz.mongo.service.EstudianteService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -19,6 +22,21 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     @Autowired
     private EstudianteRepository estudianteRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @Override
+    public List<Map> getEstudiantesAgrupadosPorCarrera() {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.group("informacionPersonal.carrera")
+                        .push("$$ROOT").as("estudiantes")
+        );
+
+        AggregationResults<Map> results = mongoTemplate.aggregate(aggregation, "estudiantes", Map.class);
+        return results.getMappedResults();
+    }
+
 
 
     @Override

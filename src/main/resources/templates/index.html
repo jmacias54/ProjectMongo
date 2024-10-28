@@ -15,34 +15,35 @@
 
     <!-- Tabla para mostrar estudiantes -->
     <h2>Lista de Estudiantes</h2>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Carrera</th>
-            <th>Semestre</th>
-            <th>Materias</th>
-            <th>Teléfono Celular</th>
-            <th>Teléfono Casa</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="estudiante : ${estudiantes}">
-            <td th:text="${estudiante.id}"></td>
-            <td th:text="${estudiante.informacionEscolar.nombre}"></td>
-            <td th:text="${estudiante.informacionEscolar.apellidoPaterno}"></td>
-            <td th:text="${estudiante.informacionEscolar.apellidoMaterno}"></td>
-            <td th:text="${estudiante.informacionPersonal.carrera}"></td>
-            <td th:text="${estudiante.informacionPersonal.semestre}"></td>
-            <td th:text="${estudiante.informacionPersonal.materias}"></td>
-            <td th:text="${estudiante.informacionEscolar.telefonos.celular}"></td>
-            <td th:text="${estudiante.informacionEscolar.telefonos.casa}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:each="entry : ${estudiantesPorCarrera}">
+        <h2 th:text="${entry['_id']}"></h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Semestre</th>
+                <th>Materias</th>
+                <th>Teléfono Celular</th>
+                <th>Teléfono Casa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="estudiante : ${entry['estudiantes']}">
+                <td th:text="${estudiante.id}"></td>
+                <td th:text="${estudiante.informacionEscolar.nombre}"></td>
+                <td th:text="${estudiante.informacionEscolar.apellidoPaterno}"></td>
+                <td th:text="${estudiante.informacionEscolar.apellidoMaterno}"></td>
+                <td th:text="${estudiante.informacionPersonal.semestre}"></td>
+                <td th:text="${estudiante.informacionPersonal.materias}"></td>
+                <td th:text="${estudiante.informacionEscolar.telefonos.celular}"></td>
+                <td th:text="${estudiante.informacionEscolar.telefonos.casa}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Modal de agregar estudiante -->

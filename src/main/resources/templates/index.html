@@ -63,36 +63,82 @@
         Agregar Estudiante
     </button>
 
-    <!-- Tabla para mostrar estudiantes -->
-    <h2>Lista de Estudiantes</h2>
-    <div th:each="entry : ${estudiantesPorCarrera}">
-        <h2 th:text="${entry['_id']}"></h2>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellido Paterno</th>
-                <th>Apellido Materno</th>
-                <th>Semestre</th>
-                <th>Materias</th>
-                <th>Teléfono Celular</th>
-                <th>Teléfono Casa</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="estudiante : ${entry['estudiantes']}">
-                <td th:text="${estudiante.id}"></td>
-                <td th:text="${estudiante.informacionEscolar.nombre}"></td>
-                <td th:text="${estudiante.informacionEscolar.apellidoPaterno}"></td>
-                <td th:text="${estudiante.informacionEscolar.apellidoMaterno}"></td>
-                <td th:text="${estudiante.informacionPersonal.semestre}"></td>
-                <td th:text="${estudiante.informacionPersonal.materias}"></td>
-                <td th:text="${estudiante.informacionEscolar.telefonos.celular}"></td>
-                <td th:text="${estudiante.informacionEscolar.telefonos.casa}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- Pestañas para la visualización de tablas -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="agrupada-tab" data-bs-toggle="tab" data-bs-target="#agrupada" type="button" role="tab" aria-controls="agrupada" aria-selected="true">Agrupada</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="todos-tab" data-bs-toggle="tab" data-bs-target="#todos" type="button" role="tab" aria-controls="todos" aria-selected="false">Todos los Estudiantes</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <!-- Tabla Agrupada -->
+        <div class="tab-pane fade show active" id="agrupada" role="tabpanel" aria-labelledby="agrupada-tab">
+            <h2>Lista de Estudiantes Agrupada</h2>
+            <div th:each="entry : ${estudiantesPorCarrera}">
+                <h3 th:text="${entry['_id']}"></h3>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Semestre</th>
+                        <th>Materias</th>
+                        <th>Teléfono Celular</th>
+                        <th>Teléfono Casa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="estudiante : ${entry['estudiantes']}">
+                        <td th:text="${estudiante.id}"></td>
+                        <td th:text="${estudiante.informacionEscolar.nombre}"></td>
+                        <td th:text="${estudiante.informacionEscolar.apellidoPaterno}"></td>
+                        <td th:text="${estudiante.informacionEscolar.apellidoMaterno}"></td>
+                        <td th:text="${estudiante.informacionPersonal.semestre}"></td>
+                        <td th:text="${estudiante.informacionPersonal.materias}"></td>
+                        <td th:text="${estudiante.informacionEscolar.telefonos.celular}"></td>
+                        <td th:text="${estudiante.informacionEscolar.telefonos.casa}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tabla Todos los Estudiantes -->
+        <div class="tab-pane fade" id="todos" role="tabpanel" aria-labelledby="todos-tab">
+            <h2>Todos los Estudiantes</h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Carrera</th>
+                    <th>Semestre</th>
+                    <th>Materias</th>
+                    <th>Teléfono Celular</th>
+                    <th>Teléfono Casa</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="estudiante : ${estudiantes}">
+                    <td th:text="${estudiante.id}"></td>
+                    <td th:text="${estudiante.informacionEscolar.nombre}"></td>
+                    <td th:text="${estudiante.informacionEscolar.apellidoPaterno}"></td>
+                    <td th:text="${estudiante.informacionEscolar.apellidoMaterno}"></td>
+                    <td th:text="${estudiante.informacionPersonal.carrera}"></td>
+                    <td th:text="${estudiante.informacionPersonal.semestre}"></td>
+                    <td th:text="${estudiante.informacionPersonal.materias}"></td>
+                    <td th:text="${estudiante.informacionEscolar.telefonos.celular}"></td>
+                    <td th:text="${estudiante.informacionEscolar.telefonos.casa}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -132,7 +178,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="telefonoCelular" class="form-label">Teléfono Celular</label>
-                        <input type="text" id="telefonoCelular" name="telefonoCelular" class="form-control" required>
+                        <input type="text" id="telefonoCelular" name="telefonoCelular" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="telefonoCasa" class="form-label">Teléfono Casa</label>

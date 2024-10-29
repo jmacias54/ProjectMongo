@@ -22,7 +22,11 @@ public class EstudianteController {
     @GetMapping
     public String getAllEstudiantes(Model model) {
         List<Map> estudiantesPorCarrera = estudianteService.getEstudiantesAgrupadosPorCarrera();
+        List<Estudiante> estudiantes = estudianteService.getAllEstudiantes();
+
         model.addAttribute("estudiantesPorCarrera", estudiantesPorCarrera);
+        model.addAttribute("estudiantes", estudiantes);
+
         return "index";
     }
 
